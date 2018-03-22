@@ -3,13 +3,14 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="demo.sample2">
+      <class name="framework.DataDrivenFramework">
         <methods>
-          <include name="test2"/>
-          <include name="beforeMethod"/>
-          <include name="afterMethod"/>
+          <include name="BrowserConnect"/>
+          <include name="Exit"/>
+          <include name="LoginWithValidUser"/>
+          <include name="LoginWithInvalidUser"/>
         </methods>
-      </class> <!-- demo.sample2 -->
+      </class> <!-- framework.DataDrivenFramework -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

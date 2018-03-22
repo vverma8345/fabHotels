@@ -6,6 +6,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import utility.ScreenShot;
+
+
 public class Sample 
 {
 
@@ -20,6 +23,7 @@ public class Sample
 		WebElement tools = driver.findElement(By.id("tool"));
 		Select slt = new  Select(tools);
 		slt.selectByVisibleText("Checker");
+		ScreenShot.captureScreenShot(driver);
 		driver.findElement(By.id("btnLogin")).submit();
 		
 		/* HomePage Elements */
@@ -31,5 +35,7 @@ public class Sample
 		driver.close();
 		
 	}	
+	
+	
 	
 }

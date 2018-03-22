@@ -2,6 +2,7 @@ package demo;
 
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,21 +14,25 @@ import org.testng.annotations.AfterMethod;
 public class sample2 
 { 
 	
-	WebDriver driver =null;
+	WebDriver driver = null;
+	
+	  @BeforeMethod
+	  public void beforeMethod() 
+	  {
+		  driver = new FirefoxDriver();
+		  driver.get("http://ct.uccpreconfig.fastbooking.ch/index.php?Logout=1");
+		  driver.manage().window().maximize();
+	  }
 
+	@Parameters({"username","password"})
 	@Test
-	public void test1() throws Exception 
+	public void ValidCredentails(String username,String password) throws Exception 
 	{
-		login("vverma","123456");
+		login(username,password);
 		
 	}
 	
-	@Test
-	public void test2() throws Exception
-	{
-		login("Invalid","Invalid");
-		
-	}
+	
 	
 	public void login(String Username,String Password) throws Exception
 	{
@@ -47,18 +52,12 @@ public class sample2
 
 	}
 
-  @BeforeMethod
-  public void beforeMethod() 
-  {
-	  driver = new FirefoxDriver();
-	  driver.get("http://ct.uccpreconfig.fastbooking.ch/index.php?Logout=1");
-	  driver.manage().window().maximize();
-  }
-
+  
   @AfterMethod
-  public void afterMethod() 
+  public void afterMethod() throws Exception 
   {
 	  driver.quit();
+	  
   }
 
 

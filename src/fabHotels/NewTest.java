@@ -1,33 +1,20 @@
 package fabHotels;
-
 import org.testng.annotations.Test;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
-
-import static org.testng.Assert.assertEquals;
-
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 
 public class NewTest {
@@ -46,20 +33,20 @@ public class NewTest {
 
 	}
 
-	@Test(priority = 1)
+	@Test(priority = 1,description="This functiob verify Title of Application.")
 	public void VerifyHomePage() {
 		String actualTitle = driver.getTitle();
 		Assert.assertEquals(actualTitle, "FabHotels: India’s Best Budget Hotels", "Title not match.");
 	}
 
-	@Test(priority = 2)
+	@Test(priority = 2,description="This function varify Hotel search.")
 	public void HotelSearch() throws Exception { // Search hotel location
 		driver.findElement(By.id("autocomplete-location")).sendKeys("Delhi, India");
 
 		// CheckIn date
 		WebElement CheckIn = driver.findElement(By.xpath(".//*[@id='datepicker']/div[1]/div/input"));
 		CheckIn.click();
-		while (!driver.findElement(By.className("datepicker-switch")).getText().contains("March 2018")) {
+		while (!driver.findElement(By.className("datepicker-switch")).getText().contains("April 2018")) {
 			driver.findElement(By.className("next")).click();
 		}
 
@@ -77,7 +64,7 @@ public class NewTest {
 		// CheckOut date
 		WebElement CheckOut = driver.findElement(By.xpath(".//*[@id='datepicker']/div[2]/div/input"));
 		CheckOut.click();
-		while (!driver.findElement(By.className("datepicker-switch")).getText().contains("March 2018")) {
+		while (!driver.findElement(By.className("datepicker-switch")).getText().contains("April 2018")) {
 			driver.findElement(By.className("next")).click();
 		}
 
@@ -110,7 +97,7 @@ public class NewTest {
 
 	}
 
-	@Test(priority = 3)
+	@Test(priority = 3,description="This function verify select hotel")
 	public void SelectHotel() throws Exception {
 
 		WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -137,7 +124,7 @@ public class NewTest {
 		for (WebElement Bhotel : hotels) {
 			String HName = Bhotel.getText();
 
-			if (HName.equalsIgnoreCase("FabHotel Regalia")) {
+			if (HName.equalsIgnoreCase("FabHotel Ring View")) {
 				Bhotel.click();
 
 				break;
@@ -148,31 +135,31 @@ public class NewTest {
 
 	}
 
-	@Test(priority = 4)
+	@Test(priority = 4,description="This function verify user able to book hotel")
 	public void FinalPage() throws Exception {
-	WebElement scrollTO, select_Guest, proceed_To_Pay;
-		
+		WebElement scrollTO, select_Guest, proceed_To_Pay;
+
 		// Switch to new Tab
 		ArrayList<String> newTab = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(newTab.get(1));
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		String finalHotelURL = driver.getCurrentUrl();
 		System.out.println(finalHotelURL);
-		
+
 		// Scroll Page down to Room list using Javascript Executor.
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		scrollTO = driver.findElement(By.xpath("//div[contains(@class,'btn check-availability available')]"));
 		System.out.println(scrollTO.getText());
 		js.executeScript("arguments[0].scrollIntoView();", scrollTO);
-		
+
 		// jsEXE.executeScript("window.scrollBy(0,2000)");
 		select_Guest = driver.findElement(By.xpath("//button[contains(@class,'btn select_room_type')]"));
 		select_Guest.click();
 		WebElement no_of_Guest = driver.findElement(By.xpath("//div[@class='select-box rooms_select']"));
 		no_of_Guest.click();
-		List<WebElement> select_no_Guest = driver.findElements(By.xpath("//div[@class='select-dropdown-wrap rooms_select_dropdown']/span"));
-		for (WebElement Guest_Count : select_no_Guest) 
-		{
+		List<WebElement> select_no_Guest = driver
+				.findElements(By.xpath("//div[@class='select-dropdown-wrap rooms_select_dropdown']/span"));
+		for (WebElement Guest_Count : select_no_Guest) {
 			String GUESTNO = Guest_Count.getText();
 			System.out.println("Select Room No" + GUESTNO);
 			if (GUESTNO.equalsIgnoreCase("02")) {
@@ -186,8 +173,7 @@ public class NewTest {
 	}
 
 	@AfterTest
-	public void afterMethod() 
-	{
+	public void afterMethod() {
 
 		driver.quit();
 

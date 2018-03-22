@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Suite" parallel="methods" thread-count="2" >
-  <test name="Test">
+<suite name="Suite">
+  <test name="Test" parallel="methods" thread-count="2" >
+  <parameter name="username" value="vverma"/>
+  <parameter name="password" value="123456"/>
+ 
     <classes>
       <class name="demo.sample2"/>
-      
+      <class name="demo.sample3"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
